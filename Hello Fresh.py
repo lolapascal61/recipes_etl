@@ -49,26 +49,24 @@ recipes_chilli['total_time'] = recipes_chilli['cookTime_time'] + recipes_chilli[
 #Create difficulty variable
 import numpy as np
 
+#List of conditions
 conditions = [
     (recipes_chilli['total_time'] > '01:00:00'),
     (('01:00:00' >= recipes_chilli['total_time']) & ( recipes_chilli['total_time'] >= '00:30:00')),
     ((recipes_chilli['total_time'] < '00:30:00'))
     ]
 
-# create a list of the values we want to assign for each condition
+#List of the values we want to assign for each condition
 values = ['Hard', 'Medium', 'Easy']
 
-# create a new column and use np.select to assign values to it using our lists as arguments
+#Create a new column for difficulty
 recipes_chilli['difficulty'] = np.select(conditions, values)
 
 recipes_chilli['difficulty'].fillna('Unknown', inplace = True)
-
-# display updated DataFrame
 recipes_chilli.head()
 
 
 # In[85]:
-
 
 #Save as csv file
 recipes_chilli.to_csv('recipes_chilli.csv', header= True, index=False)
